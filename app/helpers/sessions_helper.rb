@@ -2,6 +2,11 @@ module SessionsHelper
 
   # Logs in the given user.
   def log_in(user)
+    if respond_to?(:reset_session)
+      forwarding_url = session[:forwarding_url]
+      reset_session
+      session[:forwarding_url] = forwarding_url if forwarding_url
+    end
     session[:user_id] = user.id
   end
 

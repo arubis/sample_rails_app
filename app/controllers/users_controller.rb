@@ -74,7 +74,11 @@ class UsersController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      unless current_user?(@user)
+        Rails.logger.warn("Security: unauthorized access attempt by user '#{current_user&.email}' " \
+                          "on user '#{@user.email}' (action: #{action_name})")
+        redirect_to(root_url)
+      end
     end
 
     # Confirms an admin user.

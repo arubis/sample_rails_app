@@ -41,6 +41,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { host: 'example.com' }
 
+  # Allow secure cookies to be written in test environment (HTTP requests).
+  config.action_dispatch.always_write_cookie = true
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
